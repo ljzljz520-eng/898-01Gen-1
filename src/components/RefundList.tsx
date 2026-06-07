@@ -17,7 +17,7 @@ export const RefundList: React.FC = () => {
   const handleUpdateRefundStatus = (id: string, status: RefundStatus) => {
     const refund = state.refunds.find((r) => r.id === id)
     if (refund) {
-      const updatedRefunds = state.refunds.map((r) =>
+      state.refunds.map((r) =>
         r.id === id ? { ...r, status } : r
       )
       dispatch({

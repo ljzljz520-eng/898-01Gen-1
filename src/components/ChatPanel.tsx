@@ -1,6 +1,6 @@
-import React, { useState, useRef, useEffect } from 'react'
+import React, { useState, useRef, useEffect, useMemo } from 'react'
 import { Send, Calendar, Users, DollarSign, X, CheckCircle, MessageSquare } from 'lucide-react'
-import { formatISO, startOfDay, addDays, eachDayOfInterval } from 'date-fns'
+import { formatISO, addDays, eachDayOfInterval } from 'date-fns'
 import { useApp } from '@/context/AppContext'
 import { ChatMessage, Booking } from '@/types'
 import {
@@ -24,7 +24,7 @@ export const ChatPanel: React.FC<ChatPanelProps> = ({
   selectedEndDate,
   onDateSelect,
 }) => {
-  const { state, dispatch, getDatePrice, isDateAvailable } = useApp()
+  const { state, dispatch, getDatePrice } = useApp()
   const [message, setMessage] = useState('')
   const [guestCount, setGuestCount] = useState(2)
   const [showBookingForm, setShowBookingForm] = useState(false)
@@ -33,9 +33,12 @@ export const ChatPanel: React.FC<ChatPanelProps> = ({
   const conversation = state.conversations.find(
     (c) => c.id === state.selectedConversationId
   )
-  const messages = state.selectedConversationId
-    ? state.messages[state.selectedConversationId] || []
-    : []
+  const messages = useMemo(() => 
+    state.selectedConversationId
+      ? state.messages[state.selectedConversationId] || []
+      : [],
+    [state.selectedConversationId, state.messages]
+  )
 
   useEffect(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' })

@@ -142,17 +142,15 @@ export const CleaningList: React.FC = () => {
                           <CheckCircle className="w-4 h-4" />
                         </button>
                       )}
-                      {cleaning.status !== 'cancelled' && (
-                        <button
-                          onClick={() =>
-                            handleUpdateStatus(cleaning.id, 'cancelled')
-                          }
-                          className="p-2 bg-red-100 text-red-600 rounded-lg hover:bg-red-200 transition-colors"
-                          title="取消保洁"
-                        >
-                          <XCircle className="w-4 h-4" />
-                        </button>
-                      )}
+                      <button
+                        onClick={() =>
+                          handleUpdateStatus(cleaning.id, 'cancelled')
+                        }
+                        className="p-2 bg-red-100 text-red-600 rounded-lg hover:bg-red-200 transition-colors"
+                        title="取消保洁"
+                      >
+                        <XCircle className="w-4 h-4" />
+                      </button>
                     </div>
                   )}
               </div>

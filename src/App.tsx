@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import { useState } from 'react'
 import { Calendar, MessageSquare, Settings, X } from 'lucide-react'
 import { Header } from '@/components/Header'
 import { PropertySelector } from '@/components/PropertySelector'
@@ -13,6 +13,7 @@ import { useApp } from '@/context/AppContext'
 
 type HostTab = 'calendar' | 'bookings' | 'cleaning' | 'refunds' | 'chat'
 type GuestTab = 'calendar' | 'chat' | 'mybookings'
+type Tab = HostTab | GuestTab
 
 function App() {
   const { state } = useApp()
@@ -31,23 +32,25 @@ function App() {
     setShowChatCalendar(true)
   }
 
-  const hostTabs = [
+  const hostTabs: Array<{ id: HostTab; label: string; icon: React.ComponentType<{ className?: string }> }> = [
     { id: 'calendar', label: '房态日历', icon: Calendar },
     { id: 'bookings', label: '预订管理', icon: Settings },
     { id: 'cleaning', label: '保洁安排', icon: Calendar },
     { id: 'refunds', label: '退款管理', icon: Settings },
     { id: 'chat', label: '消息中心', icon: MessageSquare },
-  ] as const
+  ]
 
-  const guestTabs = [
+  const guestTabs: Array<{ id: GuestTab; label: string; icon: React.ComponentType<{ className?: string }> }> = [
     { id: 'calendar', label: '查看房源', icon: Calendar },
     { id: 'chat', label: '联系房东', icon: MessageSquare },
     { id: 'mybookings', label: '我的预订', icon: Settings },
-  ] as const
+  ]
 
   const currentTabs = state.currentRole === 'host' ? hostTabs : guestTabs
   const currentTab = state.currentRole === 'host' ? hostTab : guestTab
-  const setCurrentTab = state.currentRole === 'host' ? setHostTab : setGuestTab
+  const setCurrentTab = state.currentRole === 'host' 
+    ? (id: Tab) => setHostTab(id as HostTab)
+    : (id: Tab) => setGuestTab(id as GuestTab)
 
   return (
     <div className="min-h-screen bg-gray-50">
@@ -68,7 +71,7 @@ function App() {
                   return (
                     <button
                       key={tab.id}
-                      onClick={() => setCurrentTab(tab.id as any)}
+                      onClick={() => setCurrentTab(tab.id)}
                       className={`flex items-center gap-2 px-6 py-4 text-sm font-medium transition-colors relative ${
                         isActive
                           ? 'text-bnb-primary'

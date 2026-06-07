@@ -8,11 +8,10 @@ import {
   DatePrice,
 } from '@/types'
 import { addDays, formatISO, startOfDay } from 'date-fns'
-import { generateId } from '@/utils/helpers'
 
 const today = startOfDay(new Date())
 
-function generateDatePrices(propertyId: string, basePrice: number): DatePrice[] {
+function generateDatePrices(_propertyId: string, basePrice: number): DatePrice[] {
   const prices: DatePrice[] = []
 
   for (let i = -10; i < 60; i++) {

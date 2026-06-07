@@ -14,11 +14,11 @@ import {
   isBefore,
   addDays,
 } from 'date-fns'
-import { zhCN } from 'date-fns/locale'
+
 import { ChevronLeft, ChevronRight, Sparkles, Wrench, Trash2 } from 'lucide-react'
 import { useApp } from '@/context/AppContext'
 import { RoomStatus, DatePrice } from '@/types'
-import { formatPrice, getStatusText, getStatusColor } from '@/utils/helpers'
+import { formatPrice, getStatusText } from '@/utils/helpers'
 
 interface CalendarProps {
   mode?: 'view' | 'select' | 'block'
@@ -194,7 +194,6 @@ export const Calendar: React.FC<CalendarProps> = ({
           {currentMonth.toLocaleDateString('zh-CN', {
             year: 'numeric',
             month: 'long',
-            locale: zhCN,
           })}
         </h3>
         <button

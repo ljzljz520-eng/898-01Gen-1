@@ -2,7 +2,6 @@ import React, { createContext, useContext, useReducer, ReactNode } from 'react'
 import {
   AppState,
   Role,
-  Property,
   Booking,
   Cleaning,
   Refund,
@@ -19,7 +18,6 @@ import {
   formatISO,
   startOfDay,
   eachDayOfInterval,
-  isSameDay,
 } from 'date-fns'
 import { generateId } from '@/utils/helpers'
 import { mockData } from '@/data/mockData'
@@ -335,6 +333,7 @@ export function AppProvider({ children }: { children: ReactNode }) {
   )
 }
 
+/* eslint-disable react-refresh/only-export-components */
 export function useApp() {
   const context = useContext(AppContext)
   if (context === undefined) {

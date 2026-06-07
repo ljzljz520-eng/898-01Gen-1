@@ -1,5 +1,5 @@
 import React from 'react'
-import { Home, Users, DollarSign } from 'lucide-react'
+import { Users, DollarSign } from 'lucide-react'
 import { useApp } from '@/context/AppContext'
 import { formatPrice } from '@/utils/helpers'
 
